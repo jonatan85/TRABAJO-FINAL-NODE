@@ -15,8 +15,7 @@ const moviesRoutes = express.Router();
 // Añadimos el middleware entre la llamada del endPoint y la función.
 // Los middleware que añadamos es ejecutar en el orden de el array, empezando en la poscion 0 y con next pasara a la posición 1 de el array de middleware.
 // Si no se registra y se loguea no tendra acceso a la ficha tecnica de todas las peliculas.
-// moviesRoutes.get('/', [isAuthMovie], async (req, res, next) => {
-moviesRoutes.get('/', async (req, res, next) => {
+moviesRoutes.get('/', [isAuthMovie], async (req, res, next) => {
    try{
       const movies = await Movie.find().populate('userData');
       return res.status(200).json(movies);
