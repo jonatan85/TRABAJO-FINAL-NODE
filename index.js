@@ -68,6 +68,11 @@ server.use(passport.initialize());
 // Para utilizar la sesión passport.
 server.use(passport.session());
 
+// Mensage para la ruta vacia de vercel.
+server.get('/', (req,res) => {
+    res.json("Bienvenido a mi API Jonatan!");
+});
+
 server.use('/user', userRouter);
 server.use('/movies', moviesRoutes);
 server.use('/cinemas', cinemasRoutes);
