@@ -2,8 +2,12 @@ const mongoose = require('mongoose');
 
 const cinemaSchema = new mongoose.Schema({
     name: {type: String, required: true, upercase: true},
-    location: {type: String, requier: true, upercase: true},
-    movies: [{ type: mongoose.Types.ObjectId, ref: 'Movie'}]
+    img: String,
+    diets: [{ type: mongoose.Types.ObjectId, ref: 'Movie'}],
+    price: [{ type: String, required: true, upercase: true}],
+    count: [{ type: String, required: true, upercase: true}],
+    description: [{ type: String, required: true, upercase: true}],
+    
 },{
     timestamps : true,
 });
