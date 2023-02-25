@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 // Añadimos picture.
 const dietsSchema = new mongoose.Schema(
     {
-        name: {type: String, required: true},
+        name: {type: mongoose.Types.ObjectId, required: true, ref: 'Plate'},
         img: String,
         description: [{ type: String, required: true, upercase: true}],
     },
