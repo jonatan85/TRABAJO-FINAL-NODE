@@ -1,7 +1,7 @@
 const express = require('express');
 const Diet = require('../models/Diet.js');
 const createError = require('../utils/errors/create-error.js');
-const isAuthMovie = require('../utils/middleware/auth-movie.middleware.js');
+const isAuthDiet = require('../utils/middleware/auth-diet.middleware.js');
 const upload = require('../utils/middleware/file.middleware.js');
 const imageToUri = require('image-to-uri');
 const fs = require('fs');
@@ -42,8 +42,8 @@ dietsRoutes.get('/:id', async (req, res, next) => {
 // dietsRoutes.get('/title/:title', async (req, res, next) => {
 //    try{
 //       const title = req.params.title;
-//       const titleMovie = await Diet.find({title: title});
-//       return res.status(200).json(titleMovie);
+//       const titlediet = await Diet.find({title: title});
+//       return res.status(200).json(titlediet);
 //    } catch(err) {
 //       next(err);
 //    }
@@ -52,8 +52,8 @@ dietsRoutes.get('/:id', async (req, res, next) => {
 // dietsRoutes.get('/genre/:genre', async (req, res, next) => {
 //    try{
 //       const genre = req.params.genre;
-//       const genreMovie = await Diet.find({genre: genre})
-//       return res.status(200).json(genreMovie);
+//       const genrediet = await Diet.find({genre: genre})
+//       return res.status(200).json(genrediet);
 //    } catch(err) {
 //       next(err);
 //    }
@@ -62,8 +62,8 @@ dietsRoutes.get('/:id', async (req, res, next) => {
 // dietsRoutes.get('/year/:year', async (req, res, next) => {
 //    try{
 //       const year = req.params.year;
-//       const yearMovie = await Diet.find({year: year});
-//       return res.status(200).json(yearMovie);
+//       const yeardiet = await Diet.find({year: year});
+//       return res.status(200).json(yeardiet);
 //    } catch(err) {
 //       next(err);
 //    }
@@ -72,7 +72,7 @@ dietsRoutes.get('/:id', async (req, res, next) => {
 // Añadimos el middleware para que al crear una nueva pelicula le podamos añadir una imagen.
 // Añadimos single por que solo permitimos subir un archivo.
 // Mediante un ternario indicamos que el nombre los extraiga de req.file.filname con multer, si no devuelve un null.
-// Añadimos la picture a la creación de la movie.
+// Añadimos la picture a la creación de la diet.
 // Importamos uri para tranformar a base 64(tranformamos la imagen en datos alfa-numericos).
 // path que tiene la ruta de el servidor.
 // Transformamos picturePath en datos.
@@ -83,12 +83,12 @@ dietsRoutes.post('/', [upload.single('picture')], async (req, res, next) => {
       const picturePath = req.file ? req.file.path : null;
       const picture = imageToUri(picturePath);
    
-      const newMovie = new Diet({...req.body, picture });
-      const createMovies = await newMovie.save();
+      const newDiet = new Diet({...req.body, picture });
+      const createDiets = await newDiet.save();
       
       await fs.unlinkSync(picturePath);
       
-      return res.status(201).json(createMovies);
+      return res.status(201).json(createDiets);
    } catch(err) {
       next(err);
    }
@@ -97,10 +97,10 @@ dietsRoutes.post('/', [upload.single('picture')], async (req, res, next) => {
 // EndPiont de cloudinary
 dietsRoutes.post('/to-cloud', [upload.single('picture'), uploadToCloudinary], async (req, res, next) => {
    try {
-      const newMovie = new Diet({...req.body, picture: req.file_url });
-      const createMovies = await newMovie.save();
+      const newDiet = new Diet({...req.body, picture: req.file_url });
+      const createDiets = await newDiet.save();
       
-      return res.status(201).json(createMovies);
+      return res.status(201).json(createDiets);
    } catch(err) {
       next(err);
    }
@@ -109,18 +109,18 @@ dietsRoutes.post('/to-cloud', [upload.single('picture'), uploadToCloudinary], as
 dietsRoutes.put('/:id', async (req, res, next) => {
    try {
       const id = req.params.id;
-      const modifiedMovies = new Diet({...req.body});
+      const modifieddiets = new Diet({...req.body});
       //Para que no genere un id aleatorio y lo deje como fijo.
-      modifiedMovies._id = id;
-      // Para actualizar, Pero no me cambia los datos de la movie.
-      const movieUpdate = await Diet.findByIdAndUpdate(
+      modifieddiets._id = id;
+      // Para actualizar, Pero no me cambia los datos de la diet.
+      const dietUpdate = await Diet.findByIdAndUpdate(
          id,
-         modifiedMovies,
-         //Añado new = true para que me traiga la movie con los cambios realizados.
+         modifieddiets,
+         //Añado new = true para que me traiga la diet con los cambios realizados.
          {new: true}
       );
       // Por ultimo el estatus json + paramatro
-      return res.status(200).json(movieUpdate);
+      return res.status(200).json(dietUpdate);
    }catch (err) {
       next(err);
    }
@@ -138,21 +138,21 @@ dietsRoutes.delete('/:id', async (req, res, next) => {
 // Añade las peliculas favoritas a los usuarios.
 // dietsRoutes.post('/add-favorite', async (req, res, next) => {
 //    try {
-//       const {movieid, userDataid } = req.body;
-//       const currMovie = await Diet.findById(movieid);
-//       const currFavoriteCount = currMovie.favoriteCount;
-//       const updatedMovie = await Diet.findByIdAndUpdate(
-//          movieid,
+//       const {dietid, userDataid } = req.body;
+//       const currdiet = await Diet.findById(dietid);
+//       const currFavoriteCount = currdiet.favoriteCount;
+//       const updateddiet = await Diet.findByIdAndUpdate(
+//          dietid,
 //          {$set: {favoriteCount: currFavoriteCount }},
 //          {new: true}
 //       );
 //       const updatedUserData = await UserData.findByIdAndUpdate(
 //          userDataid,
-//          {$push: {favoriteMovie: movieid}},
+//          {$push: {favoritediet: dietid}},
 //          {new: true}
 //       );
 //       return res.status(200).json({
-//          movie: updatedMovie,
+//          diet: updateddiet,
 //          userdata: updatedUserData
 //       });
 

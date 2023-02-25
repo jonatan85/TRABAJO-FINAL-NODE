@@ -13,6 +13,6 @@ const plateSchema = new mongoose.Schema({
 });
 
 
-const Plate = mongoose.model('Plate', cinemaSchema);
+const Plate = mongoose.model('Plate', plateSchema);
 
 module.exports = Plate;

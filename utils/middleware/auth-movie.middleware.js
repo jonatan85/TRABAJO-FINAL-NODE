@@ -5,7 +5,7 @@ const createError = require('../errors/create-error');
 // isAuthenticated nos delvulve un true o un false.
 // Si es true, con un next si error para que pase a el siguiente paso.
 // Si nos devulve un false, mandamos a el usuario un mensaje de erro y un 401, que es un error de inicio de sesión.
-const isAuthMovie = (req, res, next) => {
+const isAuthDiet = (req, res, next) => {
     if(req.isAuthenticated()) {
         return next();
     } else {
@@ -14,4 +14,4 @@ const isAuthMovie = (req, res, next) => {
 }
 
 // Exportamos el middleware.
-module.exports = isAuthMovie;
+module.exports = isAuthDiet;

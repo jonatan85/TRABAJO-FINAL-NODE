@@ -2,8 +2,8 @@
 require('dotenv').config();
 
 const express = require('express');
-const moviesRoutes = require('./routes/movies.routes.js');
-const cinemasRoutes = require('./routes/cinema.routes.js');
+const dietsRoutes = require('./routes/diets.routes.js');
+const platesRoutes = require('./routes/plate.routes.js');
 const connect = require('./utils/db/connect.js');
 const cors = require('cors');
 const passport = require('passport');
@@ -77,8 +77,8 @@ server.get('/', (req,res) => {
 });
 
 server.use('/user', userRouter);
-server.use('/diets', moviesRoutes);
-server.use('/plates', cinemasRoutes);
+server.use('/diets', dietsRoutes);
+server.use('/plates', platesRoutes);
 server.use('/userdata', userDataRoutes);
 
 // Control de errores.

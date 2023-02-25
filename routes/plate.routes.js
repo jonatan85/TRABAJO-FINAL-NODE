@@ -26,7 +26,7 @@ platesRoutes.post('/', async(req, res, next) => {
 });
 
 // Añade peliculas  a los cines.
-platesRoutes.put('/add-diets', async (req, res, next) => {
+platesRoutes.put('/add-diet', async (req, res, next) => {
     try {
         const {platesId, dietsId} = req.body;
         if(!platesId) {
@@ -35,9 +35,9 @@ platesRoutes.put('/add-diets', async (req, res, next) => {
         if(!dietsId) {
             return next(createError('Se necesita un id de pilicula para añadirlo a el cine', 500))
         }
-        const addCinema = await Plate.findByIdAndUpdate(
+        const addPlate = await Plate.findByIdAndUpdate(
             platesId,
-            {$push: {movies: dietsId}},
+            {$push: {diet: dietsId}},
             {new: true }
         );
         return res.status(200).json(addPlate);
