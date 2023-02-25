@@ -26,7 +26,7 @@ platesRoutes.post('/', async(req, res, next) => {
 });
 
 // Añade peliculas  a los cines.
-platesRoutes.put('/add-diet', async (req, res, next) => {
+platesRoutes.put('/add-plates', async (req, res, next) => {
     try {
         const {platesId, dietsId} = req.body;
         if(!platesId) {

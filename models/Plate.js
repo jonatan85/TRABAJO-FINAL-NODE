@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const plateSchema = new mongoose.Schema({
-    name: {type: String, required: true, upercase: true,  ref: 'UserData'},
+    name: {type: mongoose.Types.ObjectId, required: true,  ref: 'UserData'},
     img: String,
     diets: [{ type: mongoose.Types.ObjectId, ref: 'Diet'}],
     price: [{ type: String, required: true, upercase: true}],
