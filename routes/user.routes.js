@@ -2,6 +2,9 @@ const { json } = require('express');
 const express = require('express');
 const passport = require('passport');
 const User = require('../models/Users.js');
+const bcrypt = require('bcrypt');
+const getJWT = require('../utils/authentication/jsonwebtoken');
+const createError = require('../utils/errors/create-error.js');
 
 const userRouter = express.Router();
 
@@ -87,6 +90,25 @@ userRouter.get('/Search/:id', async (req, res, next) => {
     }
  });
 
- 
+
+// Post con WebToken
+ userRouter.post('/login-jwt', async (req, res, next) => {
+    const {email, password} = req.body;
+    const user = await User.findOne({ email })
+    if(!user) {
+        return next(createError('El usuario no existe'), 404);
+    }
+    const isValidPassword = await bcrypt.compare(password, user.password);
+    if(!isValidPassword) {
+        return next(createError('La contraseña no es valida', 403));
+    }
+
+    user.password = null;
+    const token = getJWT(user, req.app.get('secretKey'));
+    return res.status(200).json({
+        user,
+        token
+    })
+ });
 
 module.exports = userRouter;

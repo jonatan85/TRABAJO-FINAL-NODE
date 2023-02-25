@@ -22,6 +22,9 @@ connect();
 const PORT = process.env.PORT || 4000;
 const server = express();
 
+// Json webToken.
+server.set("secretKey", "moneHeistApi");
+
 // Añadimos la configuración de claudinari.
 cloudinary.config({ 
     cloud_name: process.env.CLOUD_NAME, 
