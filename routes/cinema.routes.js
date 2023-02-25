@@ -1,49 +1,49 @@
 const express = require('express');
-const Cinema = require('../models/Cinemas.js');
+const Plate = require('../models/Plate.js');
 const createError = require('../utils/errors/create-error.js');
 const isAuthJWT = require('../utils/middleware/auth-jwt.middleware.js');
 
-const cinemasRoutes = express.Router();
+const platesRoutes = express.Router();
 
 
-cinemasRoutes.get('/', [isAuthJWT], async(req, res, next) => {
+platesRoutes.get('/', [isAuthJWT], async(req, res, next) => {
     try {
-        const cinemas = await Cinema.find().populate('movies');
-        return res.status(200).json(cinemas);
+        const plates = await Plate.find().populate('plates');
+        return res.status(200).json(plates);
     } catch(err) {
         next(err);
     }
 });
 
-cinemasRoutes.post('/', async(req, res, next) => {
+platesRoutes.post('/', async(req, res, next) => {
     try{
-        const newCinema = new Cinema({ ...req.body});
-        const createCinema = await newCinema.save();
-        return res.status(201).json(createCinema);
+        const newPlates = new Plate({ ...req.body});
+        const createPlates = await newPlates.save();
+        return res.status(201).json(createPlates);
     } catch(err) {
         next(err);
     }
 });
 
 // Añade peliculas  a los cines.
-cinemasRoutes.put('/add-movies', async (req, res, next) => {
+platesRoutes.put('/add-diets', async (req, res, next) => {
     try {
-        const {cinemaId, moviesId} = req.body;
-        if(!cinemaId) {
+        const {platesId, dietsId} = req.body;
+        if(!platesId) {
             return next(createError('Se necesita un id de cine para poder añadir una peliula', 500))
         }
-        if(!moviesId) {
+        if(!dietsId) {
             return next(createError('Se necesita un id de pilicula para añadirlo a el cine', 500))
         }
-        const addCinema = await Cinema.findByIdAndUpdate(
-            cinemaId,
-            {$push: {movies: moviesId}},
+        const addCinema = await Plate.findByIdAndUpdate(
+            platesId,
+            {$push: {movies: dietsId}},
             {new: true }
         );
-        return res.status(200).json(addCinema);
+        return res.status(200).json(addPlate);
     } catch(err) {
         next(err);
     }
 });
 
-module.exports = cinemasRoutes;
+module.exports = platesRoutes;

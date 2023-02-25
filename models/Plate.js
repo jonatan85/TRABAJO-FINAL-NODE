@@ -1,9 +1,9 @@
 const mongoose = require('mongoose');
 
-const cinemaSchema = new mongoose.Schema({
-    name: {type: String, required: true, upercase: true},
+const plateSchema = new mongoose.Schema({
+    name: {type: String, required: true, upercase: true,  ref: 'UserData'},
     img: String,
-    diets: [{ type: mongoose.Types.ObjectId, ref: 'Movie'}],
+    diets: [{ type: mongoose.Types.ObjectId, ref: 'Diet'}],
     price: [{ type: String, required: true, upercase: true}],
     count: [{ type: String, required: true, upercase: true}],
     description: [{ type: String, required: true, upercase: true}],
@@ -13,6 +13,6 @@ const cinemaSchema = new mongoose.Schema({
 });
 
 
-const Cinema = mongoose.model('Cinema', cinemaSchema);
+const Plate = mongoose.model('Plate', cinemaSchema);
 
-module.exports = Cinema;
+module.exports = Plate;

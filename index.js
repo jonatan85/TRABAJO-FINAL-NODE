@@ -77,8 +77,8 @@ server.get('/', (req,res) => {
 });
 
 server.use('/user', userRouter);
-server.use('/movies', moviesRoutes);
-server.use('/cinemas', cinemasRoutes);
+server.use('/diets', moviesRoutes);
+server.use('/plates', cinemasRoutes);
 server.use('/userdata', userDataRoutes);
 
 // Control de errores.

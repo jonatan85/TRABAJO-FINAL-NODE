@@ -1,9 +1,9 @@
 const mongoose = require('mongoose');
 
 // Añadimos picture.
-const moviesSchema = new mongoose.Schema(
+const dietsSchema = new mongoose.Schema(
     {
-        name: {type: mongoose.Types.ObjectId, required: true, ref: 'UserData'},
+        name: {type: mongoose.Types.ObjectId, required: true},
         img: String,
         description: [{ type: String, required: true, upercase: true}],
     },
@@ -12,6 +12,6 @@ const moviesSchema = new mongoose.Schema(
     },
 );
 
-const Movie = mongoose.model('Movie', moviesSchema);
+const Diet = mongoose.model('Diet', dietsSchema);
 
-module.exports = Movie;
+module.exports = Diet;
