@@ -1,11 +1,12 @@
 const express = require('express');
 const Cinema = require('../models/Cinemas.js');
 const createError = require('../utils/errors/create-error.js');
+const isAuthJWT = require('../utils/middleware/auth-jwt.middleware.js');
 
 const cinemasRoutes = express.Router();
 
 
-cinemasRoutes.get('/', async(req, res, next) => {
+cinemasRoutes.get('/', [isAuthJWT], async(req, res, next) => {
     try {
         const cinemas = await Cinema.find().populate('movies');
         return res.status(200).json(cinemas);
