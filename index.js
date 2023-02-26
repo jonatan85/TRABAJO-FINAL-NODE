@@ -41,8 +41,8 @@ cloudinary.config({
       }
   };  
   
-  // Para usar POSTMAN. instalar la dependencia cors npm install --save cors    
-  server.use(cors(corsOtions));
+  // Para usar POSTMAN. instalar la dependencia cors npm install --save cors, corsOtions    
+  server.use(cors());
 // Parsea Post y Put que vienen como JSON.
 server.use(express.json());
 // Parsea Post y Put que vienen como STRING o ARRAY.
