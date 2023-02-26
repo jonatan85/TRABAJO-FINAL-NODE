@@ -1,8 +1,9 @@
 const express = require('express');
 const Plates = require('../models/Plates.js');
 const platesRoutes = express.Router();
+const isAuthJWT = require('../utils/middleware/auth-jwt.middleware')
 
-platesRoutes.get('/', async (req, res, next) => {
+platesRoutes.get('/' [isAuthJWT], async (req, res, next) => {
     try{
        const plates = await Plates.find().populate('userData');
        return res.status(200).json(plates);
