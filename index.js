@@ -2,8 +2,8 @@
 require('dotenv').config();
 
 const express = require('express');
-const dietsRoutes = require('./routes/diets.routes.js');
-const platesRoutes = require('./routes/plate.routes.js');
+const moviesRoutes = require('./routes/movies.routes.js');
+const cinemasRoutes = require('./routes/cinema.routes.js');
 const connect = require('./utils/db/connect.js');
 const cors = require('cors');
 const passport = require('passport');
@@ -22,9 +22,6 @@ connect();
 const PORT = process.env.PORT || 4000;
 const server = express();
 
-// Json webToken.
-server.set("secretKey", "moneHeistApi");
-
 // Añadimos la configuración de claudinari.
 cloudinary.config({ 
     cloud_name: process.env.CLOUD_NAME, 
@@ -32,8 +29,20 @@ cloudinary.config({
     api_secret: process.env.CLOUD_API_SECRET
   });
 
-// Para usar POSTMAN. instalar la dependencia cors npm install --save cors    
-server.use(cors());
+  const whitelist =['http://localhost:4000', 'http://localhost:4200'];
+  const corsOtions = {
+      credentials: true,
+      origin: function(origin, callback) {
+          if(whitelist.indexOf(origin) !== -1) {
+              callback(null, true)
+          } else {
+              callback(new Error('Not allowed by CORS'))
+          }
+      }
+  };  
+  
+  // Para usar POSTMAN. instalar la dependencia cors npm install --save cors    
+  server.use(cors(corsOtions));
 // Parsea Post y Put que vienen como JSON.
 server.use(express.json());
 // Parsea Post y Put que vienen como STRING o ARRAY.
@@ -77,8 +86,8 @@ server.get('/', (req,res) => {
 });
 
 server.use('/user', userRouter);
-server.use('/diets', dietsRoutes);
-server.use('/plates', platesRoutes);
+server.use('/movies', moviesRoutes);
+server.use('/cinemas', cinemasRoutes);
 server.use('/userdata', userDataRoutes);
 
 // Control de errores.

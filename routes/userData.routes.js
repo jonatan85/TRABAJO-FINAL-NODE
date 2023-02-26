@@ -6,7 +6,7 @@ const userDataRouter = express.Router();
 
 userDataRouter.get('/', async(req, res, next) => {
     try {
-        const data = await UserData.find().populate('favoritePlate');
+        const data = await UserData.find().populate('favoriteMovie');
         return res.status(200).json(data);
     } catch(err) {
         next(err);

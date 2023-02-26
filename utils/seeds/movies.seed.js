@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const Diet = require('../../models/Diets.js');
+const Movie = require('../../models/Movies.js');
 const fs = require('fs');
 
 const DB_URL = process.env.DB_URL;
@@ -8,11 +8,11 @@ mongoose.connect(DB_URL, {
     useNewUrlParser: true,
     useUnifiedTopology: true
 }).then(async () => {
-    const allDiets = await Diet.find();
+    const allMovies = await Movie.find();
 
-    if (allDiets.length) {
+    if (allMovies.length) {
         // Elimina todo el contenido de la colección
-        await Diet.collection.drop();
+        await Movie.collection.drop();
     }
 }).catch(err => {
     console.log(`Ha habido un error eliminando los datos: ${err}`);
@@ -21,12 +21,12 @@ mongoose.connect(DB_URL, {
 
 .then(async () => {
     // Añadir los nuevos elementos a nuestra colección.
-    const data = fs.readFileSync('./utils/seeds/db/diets.json');
+    const data = fs.readFileSync('./utils/seeds/db/movies.json');
     const parsedData = JSON.parse(data);
-    const dietsDocs = parsedData.map((diet) => {
-        return new Diet(diet);
+    const moviesDocs = parsedData.map((movie) => {
+        return new Movie(movie);
     });
-    await Diet.insertMany(dietsDocs);
+    await Movie.insertMany(moviesDocs);
 })
 .catch((err) => {
     console.log(`Ha habido un error añadiendo los elementos a la base de datos: ${err}`);

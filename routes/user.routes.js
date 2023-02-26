@@ -90,8 +90,7 @@ userRouter.get('/Search/:id', async (req, res, next) => {
     }
  });
 
-
-// Post con WebToken
+ // Post con WebToken
  userRouter.post('/login-jwt', async (req, res, next) => {
     const {email, password} = req.body;
     const user = await User.findOne({ email })
@@ -110,5 +109,7 @@ userRouter.get('/Search/:id', async (req, res, next) => {
         token
     })
  });
+
+ 
 
 module.exports = userRouter;

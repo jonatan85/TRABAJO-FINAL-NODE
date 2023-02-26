@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const UserDataSchema = new mongoose.Schema(
     {
-        favoritePlate: [{type: mongoose.Types.ObjectId, ref: "Plate"} ],
+        favoriteMovie: [{type: mongoose.Types.ObjectId, ref: "Movie"} ],
         username: {type: String, require: true, lowecase: true},
         lastname: {type: String, lowecase: true},
         year: {type: Number, min: 18},
