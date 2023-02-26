@@ -2,18 +2,15 @@ const mongoose = require('mongoose');
 
 const PlatesSchema = new mongoose.Schema(
     {
-        name: {type: String, require: true, lowecase: true},
-        diets: {type: String, lowecase: true},
+        name: String,
+        diets: String,
         img: String,
-        price: {type: Number, min: 18},
-        count: {type: Number, min: 18},
-        description: {type: [String], lowercase:true},
-    },
-    {
-        timestamps: true,
-    },
+        price: String,
+        count: String,
+        description: String,
+    }
 );
 
-const PlatesData = mongoose.model('Plates', PlatesSchema);
+const Plates = mongoose.model('Plates', PlatesSchema);
 
-module.exports = PlatesData;
+module.exports = Plates;

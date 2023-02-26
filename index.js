@@ -58,11 +58,6 @@ server.use(express.static(path.join(__dirname, 'public')));
 // Iniciar y confi de passport y lo ejecuta.
 require('./utils/authentication/passport.js');
 
-// gestión de sesiones.
-// secret codigó secreto para encriptar y desencriptar.
-// resave en false nos guarda la sesión cunado hay cambios.
-// saveUninitialized si esta en false lo gestiona passport.
-// cookie la sesión se guarda en ella y ademas aplicamos el tiempo que va a estar abierta.
 // Añadimos mongoStore para que nos guarde la sesiones en mongodb si el servidor no esta levantado.
 server.use(session({
     secret: process.env.SESSION_SECRET_KEY,
