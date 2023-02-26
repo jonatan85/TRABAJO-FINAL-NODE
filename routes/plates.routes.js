@@ -20,20 +20,14 @@ moviesRoutes.get('/', [isAuthJWT], async (req, res, next) => {
     }
  });
 
- moviesRoutes.post('/', [upload.single('picture')], async (req, res, next) => {
-    try {
-       const picturePath = req.file ? req.file.path : null;
-       const picture = imageToUri(picturePath);
-    
-       const newPlate = new Plates({...req.body, picture });
-       const createPlates = await newPlate.save();
-       
-       await fs.unlinkSync(picturePath);
-       
-       return res.status(201).json(createPlates);
+ cinemasRoutes.post('/', async(req, res, next) => {
+    try{
+        const newPlates = new Plates({ ...req.body});
+        const createPlates = await newPlates.save();
+        return res.status(201).json(createPlates);
     } catch(err) {
-       next(err);
+        next(err);
     }
- });
+});
 
  module.exports = platesRoutes;
