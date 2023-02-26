@@ -14,7 +14,8 @@ const MongoStore = require('connect-mongo');
 const DB_URL = process.env.DB_URL;
 const path = require('path');
 const cloudinary = require('cloudinary');
-const platesRoutes = require('./routes/plates.routes.js')
+const platesRoutes = require('./routes/plates.routes.js');
+const ingredientsRoutes = require('./routes/ingredients.routes.js');
 
 // Conexion con la base de datos.
 connect();
@@ -87,6 +88,7 @@ server.use('/movies', moviesRoutes);
 server.use('/cinemas', cinemasRoutes);
 server.use('/userdata', userDataRoutes);
 server.use('/plates', platesRoutes);
+server.use('/ingredients', ingredientsRoutes);
 
 // Control de errores.
 server.use((err, req, res, next) => {
