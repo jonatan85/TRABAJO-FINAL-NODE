@@ -39,10 +39,11 @@ cloudinary.config({
               callback(new Error('Not allowed by CORS'))
           }
       }
-  };  
+  };
+ server.set("secretKey", "moneHeistApi");
   
-  // Para usar POSTMAN. instalar la dependencia cors npm install --save cors, corsOtions    
-  server.use(cors());
+// Para usar POSTMAN. instalar la dependencia cors npm install --save cors, corsOtions    
+server.use(cors());
 // Parsea Post y Put que vienen como JSON.
 server.use(express.json());
 // Parsea Post y Put que vienen como STRING o ARRAY.
