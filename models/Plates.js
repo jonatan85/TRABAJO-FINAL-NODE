@@ -8,6 +8,7 @@ const PlatesSchema = new mongoose.Schema(
         price: String,
         count: String,
         description: String,
+        misPlatos: String,
     }
 );
 
