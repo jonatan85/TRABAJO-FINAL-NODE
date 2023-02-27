@@ -48,7 +48,7 @@ platesRoutes.put('/:id', async (req, res, next) => {
      modifiedPLates._id = id;
      // Para actualizar, Pero no me cambia los datos de la movie.
      const platesUpdate = await Plates.findByIdAndUpdate(
-        id,
+        _id,
         modifiedPLates,
         //Añado new = true para que me traiga la movie con los cambios realizados.
         {new: true}
