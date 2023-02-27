@@ -3,23 +3,7 @@ const mongoose = require('mongoose');
 const PlatesSchema = new mongoose.Schema(
     {
         name: String,
-        diets: {type: [String],
-        enum: {
-            values: [
-                'China',
-                'Vegana',
-                'Vegetariana',
-                'Proteica',
-                'Alemana',
-                'Japonesa',
-                'Mediterranea',
-                'E.E.U.U',
-                'Italiana',
-                'Francesa',
-                'Española',
-                'Vasca'
-            ]
-        }},
+        diets: String,
         img: String,
         price: String,
         count: String,
