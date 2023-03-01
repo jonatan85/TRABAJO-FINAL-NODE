@@ -45,10 +45,10 @@ platesRoutes.put('/:id', async (req, res, next) => {
      const id = req.params.id;
      const modifiedPLates = new Plates({...req.body});
      //Para que no genere un id aleatorio y lo deje como fijo.
-     modifiedPLates._id = id;
+     modifiedPLates.id = id;
      // Para actualizar, Pero no me cambia los datos de la movie.
      const platesUpdate = await Plates.findByIdAndUpdate(
-        _id,
+        id,
         modifiedPLates,
         //Añado new = true para que me traiga la movie con los cambios realizados.
         {new: true}
