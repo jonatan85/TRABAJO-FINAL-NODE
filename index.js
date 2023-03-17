@@ -16,7 +16,7 @@ const path = require('path');
 const cloudinary = require('cloudinary');
 const platesRoutes = require('./routes/plates.routes.js');
 const dietsRoutes = require('./routes/diets.routes');
-
+const pizzasRoutes = require('./routes/pizzas.routes');
 // Conexion con la base de datos.
 connect();
 
@@ -89,6 +89,7 @@ server.use('/cinemas', cinemasRoutes);
 server.use('/userdata', userDataRoutes);
 server.use('/plates', platesRoutes);
 server.use('/diets', dietsRoutes);
+server.use('/pizzas', pizzasRoutes);
 
 // Control de errores.
 server.use((err, req, res, next) => {
